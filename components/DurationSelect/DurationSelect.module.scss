@@ -1,0 +1,57 @@
+@import '../../styles/variables';
+
+.root {
+    font-size: 54px;
+    color: #fff;
+    text-shadow: $text-shadow;
+}
+
+.selects {
+    display: flex;
+}
+
+.select {
+    font-family: $font-family;
+    display: block;
+    font-weight: 400;
+    font-size: 54px;
+    line-height: 54px;
+    color: #fff;
+    padding: 6px;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    box-shadow: none;
+    border-radius: 4px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: border $transition-duration $transition-ease;
+    transition-property: border, box-shadow, background-color;
+    user-select: none;
+
+    // no hover on iOS. what is the android equivalent?
+    @supports not (-webkit-touch-callout: none) {
+        &:hover {
+            box-shadow: $shadow-hover-stroke, $shadow-hover;
+        }
+    }
+
+    &:focus {
+        box-shadow: $shadow-focus;
+        outline: none;
+        background-color: rgba(0, 0, 0, .5); // 524297;
+    }
+
+    > option {
+        font-size: 24px;
+        line-height: 24px;
+    }
+}
+
+.colon {
+    user-select: none;
+    width: 24px;
+    transform: translateX(-6px) translateY(-4px);
+}

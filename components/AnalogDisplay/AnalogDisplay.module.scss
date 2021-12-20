@@ -1,0 +1,35 @@
+.root {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.svg {
+    transform: rotate(-90deg);
+}
+
+.meter,
+.value {
+    fill: none;
+}
+
+.meter {
+    stroke: #000;
+    filter: drop-shadow(-4px 4px 4px rgba(0, 0, 0, .35));
+}
+
+.value {
+    stroke: #fff;
+    stroke-linecap: butt;
+    transition: stroke-dashoffset linear 1000ms;
+}
+
+.value_not_running {
+    transition-duration: 0ms; // 250ms;
+    transition-timing-function: ease;
+}
+
+.ticks {
+    stroke: #000;
+    stroke-width: 9;
+}
