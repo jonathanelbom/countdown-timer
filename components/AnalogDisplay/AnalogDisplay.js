@@ -14,17 +14,14 @@ export const AnalogDisplay = () => {
         updateInterval,
 	} = useCountdownProvider();
 
-    // const progress = ((seconds - (isRunning ? 1 : 0)) / (duration / 1000)) * 100 || 0;
-    const firstStepAdjust = isRunning ? updateInterval : 0;
-    const progress = ((remaining - firstStepAdjust) / duration) * 100 || 0;
+    const progress = ((remaining - (isRunning ? updateInterval : 0)) / duration) * 100 || 0;
     const diameter = 360;
-    const strokeWidth = 10;
+    const strokeWidth = 14;
+    const overlapAdj = 30;
+    const handleWidth = 12;
     const center = (diameter / 2);
     const radius = (center - (strokeWidth / 2));
-    const progressStyle = {
-        width: `${diameter}px`,
-        height: `${diameter}px`
-    };
+    
     // Circumference =  Pi times diameter. 
     // We subtact half a stroke width on either side to see where the circle center is
     const circumference = Math.PI * (diameter - strokeWidth);
@@ -33,8 +30,6 @@ export const AnalogDisplay = () => {
         strokeDashoffset: calculateProgress(circumference, progress),
         transitionDuration: `${isRunning ? updateInterval : 0}ms`
     };
-    const overlapAdj = 30;
-    const handleWidth = 14;
 
     return (
         <div className={styles.root}>
@@ -60,17 +55,16 @@ export const AnalogDisplay = () => {
                 </g>
                 <circle className={styles.meter} cx={center} cy={center} r={radius} strokeWidth={strokeWidth}/>
                 <circle className={styles.value} style={progressBarStyle}  cx={center} cy={center} r={radius} strokeWidth={strokeWidth + 2} />
-                <g style={{transform: `translate(${radius}px, ${radius + (handleWidth / 2 + strokeWidth / 2) / 2}px)`}}>
+                <g style={{transform: `translate(${radius}px, ${center}px)`}}>
                     <g
                         className={styles.handle}
                         style={{
-                            // transform: `rotate(${Math.floor(360 * (progress/100))}deg)`,
                             transform: `rotate(${360 * progress / 100}deg)`,
                             transitionDuration: `${isRunning ? updateInterval : 0}ms`
                         }}
                     >
-                        <rect y={-7} x={0} width={radius} height={`${handleWidth}px`} fill="#FADB4A"/>
-                        <circle cy={0} cx={radius} r="30" fill="#FADB4A"/>
+                        <rect y={-7} x={0} width={center} height={`${handleWidth}px`} fill="#FADB4A"/>
+                        <circle cy={0} cx={center} r="30" fill="#FADB4A"/>
                     </g>
                 </g>
             </svg>
