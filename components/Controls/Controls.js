@@ -13,12 +13,15 @@ export const Controls = () => {
     return (
         <div className={styles.root}>
             <button
+                className={styles.button}
                 onClick={reset}
                 disabled={remaining <= 0}
             >
                 <span>{'Reset'}</span>
             </button>
             <button
+            className={styles.button}
+                
                 onClick={isRunning ? stop : start}
                 disabled={remaining <= 0}
             >

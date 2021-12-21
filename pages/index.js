@@ -4,6 +4,7 @@ import styles from "../styles/Index.module.scss";
 import { CountdownProvider } from "../components/CountdownProvider/CountdownProvider";
 import { Controls } from "../components/Controls/Controls";
 import { AnalogDisplay } from "../components/AnalogDisplay/AnalogDisplay";
+import { Messaging } from "../components/Messaging/Messaging";
 
 const Index = () => {
     return (
@@ -19,6 +20,7 @@ const Index = () => {
 				</Head>
 				<main className={styles.main}>
 					<AnalogDisplay />
+					<Messaging />
 					<DurationSelect />
 					<Controls />
 				</main>

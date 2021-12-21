@@ -37,16 +37,11 @@ export const DurationSelect = () => {
         }
     }
 
-    const onSelect = (e) => {
-        const value = e.target.value;
-        console.log('e.target.value:', e.target.value);
-    }
-
     const contentData = [
         {
             type: 'select',
             children: hoursOptions,
-            value: hours, //`option-${parseInt(hours, 10)}`,
+            value: hours,
             id: 'hours-select',
             onChange: getOnSelect('hours'),
         },
@@ -56,7 +51,7 @@ export const DurationSelect = () => {
         {
             type: 'select',
             children: minutesOptions,
-            value: minutes, //`option-${parseInt(minutes, 10)}`,
+            value: minutes,
             id: 'minutes-select',
             onChange: getOnSelect('minutes'),
         },
@@ -66,7 +61,7 @@ export const DurationSelect = () => {
         {
             type: 'select',
             children: secondsOptions,
-            value: seconds, // `option-${parseInt(seconds, 10)}`,
+            value: seconds,
             id: 'seconds-select',
             onChange: getOnSelect('seconds')
         }

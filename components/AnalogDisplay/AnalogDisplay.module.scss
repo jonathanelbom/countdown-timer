@@ -1,7 +1,7 @@
 .root {
     display: flex;
     justify-content: center;
-    margin-bottom: 40px;
+    margin-bottom: 24px;
 }
 
 .svg {
@@ -24,12 +24,22 @@
     transition: stroke-dashoffset linear 1000ms;
 }
 
-.value_not_running {
-    transition-duration: 0ms; // 250ms;
-    transition-timing-function: ease;
-}
-
 .ticks {
     stroke: #000;
     stroke-width: 9;
+}
+
+.handle {
+    filter: drop-shadow(-4px 4px 4px rgba(0, 0, 0, .35));
+    transition: transform linear 1000ms;
+}
+
+.not_running {
+    .value {
+        transition-duration: 0ms; // 250ms;
+    }
+
+    .handle {
+        transition-duration: 0ms; // 250ms;
+    }
 }

@@ -1,0 +1,15 @@
+.root {
+    padding: 0 24px;
+    position: relative;
+    width: 100%;
+}
+
+.message {
+    color: #fff;
+    position: absolute;
+    top: -24px;
+    right: 0;
+    left: 0;
+    font-size: 14px;
+    text-align: center;
+}
