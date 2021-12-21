@@ -12,6 +12,7 @@ export const AnalogDisplay = () => {
         seconds,
         isRunning
 	} = useCountdownProvider();
+
     const progress = ((seconds - (isRunning ? 1 : 0)) / (duration / 1000)) * 100 || 0;
     const diameter = 360;
     const strokeWidth = 10;
@@ -45,7 +46,6 @@ export const AnalogDisplay = () => {
                     {new Array(12).fill('').map((_, index) => (
                         <line
                             key={`tick-${index}`}
-                            style={{transform: `rotate(calc(${index} * 30deg))`}}
                             x1={radius}
                             y1="0"
                             x2={radius - 30}

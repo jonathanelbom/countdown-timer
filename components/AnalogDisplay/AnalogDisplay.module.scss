@@ -27,10 +27,16 @@
 .ticks {
     stroke: #000;
     stroke-width: 9;
+
+    @for $i from 1 through 12 {
+        > line:nth-child(#{$i}) {
+            transform: rotate(calc(#{$i - 1} * 30deg));
+        }
+    }
 }
 
 .handle {
-    filter: drop-shadow(-4px 4px 4px rgba(0, 0, 0, .35));
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, .35));
     transition: transform linear 1000ms;
 }
 
