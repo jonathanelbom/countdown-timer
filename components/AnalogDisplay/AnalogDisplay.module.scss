@@ -39,13 +39,3 @@
     filter: drop-shadow(0 0 8px rgba(0, 0, 0, .35));
     transition: transform linear 1000ms;
 }
-
-.not_running {
-    .value {
-        transition-duration: 0ms; // 250ms;
-    }
-
-    .handle {
-        transition-duration: 0ms; // 250ms;
-    }
-}

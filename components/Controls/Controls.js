@@ -9,21 +9,27 @@ export const Controls = () => {
 		isRunning,
         remaining,
 	} = useCountdownProvider();
+    
+    const disabled = remaining <= 0;
+    const onStartStop = (e) => isRunning ? stop() : start();
 
     return (
         <div className={styles.root}>
             <button
                 className={styles.button}
+                onTouchStart={reset}
+                onTouchEnd={e => e.preventDefault()}
                 onClick={reset}
-                disabled={remaining <= 0}
+                disabled={disabled}
             >
                 <span>{'Reset'}</span>
             </button>
             <button
             className={styles.button}
-                
-                onClick={isRunning ? stop : start}
-                disabled={remaining <= 0}
+                onTouchStart={onStartStop}
+                onTouchEnd={e => e.preventDefault()}
+                onClick={onStartStop}
+                disabled={disabled}
             >
                 <span>{`${isRunning ? 'Stop' : 'Start'}`}</span>
             </button>

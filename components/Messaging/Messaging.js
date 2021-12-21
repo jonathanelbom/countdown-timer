@@ -4,18 +4,17 @@ import styles from "./Messaging.module.scss";
 
 export const Messaging = () => {
     const {
-		isRunning,
         seconds
 	} = useCountdownProvider();
     const [hide, setHide] = useState(false);
     
     useEffect(() => {
-        if (!hide && isRunning) {
+        if (!hide && seconds > 0) {
             setHide(true);
         }
-    }, [isRunning, hide]);
+    }, [seconds, hide]);
     
-    return !hide && !isRunning && seconds <= 0
+    return !hide && seconds <= 0
         ? (
             <div className={styles.root}>
                 <div className={styles.message}>

@@ -11,7 +11,7 @@
   .button {
     background-color: transparent;
     border: none;
-    color: white;
+    color: #fff;
     text-shadow: $text-shadow;
     font-size: 24px;
     padding: 8px 12px;
@@ -41,6 +41,6 @@
     &:active {
         box-shadow: $shadow-focus;
         outline: none;
-        background-color: rgba(0, 0, 0, .5); // 524297;
+        background-color: rgba(0, 0, 0, .5);
     }
   }

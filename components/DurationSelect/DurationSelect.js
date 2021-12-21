@@ -33,7 +33,7 @@ export const DurationSelect = () => {
             });
 
             // blur select after selection
-            document.activeElement?.blur();
+            document.activeElement.blur();
         }
     }
 

@@ -2,18 +2,21 @@ import { useCountdownProvider } from '../CountdownProvider/CountdownProvider';
 import styles from "./AnalogDisplay.module.scss";
 
 const calculateProgress = (circumference, value) => {
-    const progress = value / 100;
+    const progress = Math.max(value, 0) / 100;
     return circumference * (1 - progress);
 }
 
 export const AnalogDisplay = () => {
     const {
         duration,
-        seconds,
-        isRunning
+        remaining,
+        isRunning,
+        updateInterval,
 	} = useCountdownProvider();
 
-    const progress = ((seconds - (isRunning ? 1 : 0)) / (duration / 1000)) * 100 || 0;
+    // const progress = ((seconds - (isRunning ? 1 : 0)) / (duration / 1000)) * 100 || 0;
+    const firstStepAdjust = isRunning ? updateInterval : 0;
+    const progress = ((remaining - firstStepAdjust) / duration) * 100 || 0;
     const diameter = 360;
     const strokeWidth = 10;
     const center = (diameter / 2);
@@ -27,9 +30,11 @@ export const AnalogDisplay = () => {
     const circumference = Math.PI * (diameter - strokeWidth);
     const progressBarStyle = {
         strokeDasharray: circumference,
-        strokeDashoffset: calculateProgress(circumference, progress)
+        strokeDashoffset: calculateProgress(circumference, progress),
+        transitionDuration: `${isRunning ? updateInterval : 0}ms`
     };
     const overlapAdj = 30;
+    const handleWidth = 14;
 
     return (
         <div className={styles.root}>
@@ -55,12 +60,16 @@ export const AnalogDisplay = () => {
                 </g>
                 <circle className={styles.meter} cx={center} cy={center} r={radius} strokeWidth={strokeWidth}/>
                 <circle className={styles.value} style={progressBarStyle}  cx={center} cy={center} r={radius} strokeWidth={strokeWidth + 2} />
-                <g style={{transform: `translate(${radius}px, ${radius}px)`}}>
+                <g style={{transform: `translate(${radius}px, ${radius + (handleWidth / 2 + strokeWidth / 2) / 2}px)`}}>
                     <g
                         className={styles.handle}
-                        style={{transform: `rotate(${Math.floor(360 * (progress/100))}deg)`}}
+                        style={{
+                            // transform: `rotate(${Math.floor(360 * (progress/100))}deg)`,
+                            transform: `rotate(${360 * progress / 100}deg)`,
+                            transitionDuration: `${isRunning ? updateInterval : 0}ms`
+                        }}
                     >
-                        <rect y={-7} x={0} width={radius} height="14px" fill="#FADB4A"/>
+                        <rect y={-7} x={0} width={radius} height={`${handleWidth}px`} fill="#FADB4A"/>
                         <circle cy={0} cx={radius} r="30" fill="#FADB4A"/>
                     </g>
                 </g>
