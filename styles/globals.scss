@@ -1,5 +1,9 @@
 @import './variables';
 
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   padding: 0;
@@ -21,6 +25,7 @@ body {
   justify-content: center;
 }
 
-* {
-  box-sizing: border-box;
+#__next {
+  max-width: 600px;
+  margin: 8px 0 32px;
 }

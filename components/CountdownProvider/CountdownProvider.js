@@ -14,16 +14,18 @@ const getNumberParam = (params, name, defaultValue) => {
 
 let updateInterval = 1000;
 let initialDuration = 0;
+let showStartMessage = false;
 
 if (typeof document !== 'undefined') {
     const params = new URLSearchParams(document.location.search);
-    updateInterval = getNumberParam(params, 'updateInterval', updateInterval);
+    updateInterval = getNumberParam(params, 'interval', updateInterval);
     // make sure update interval >= 16, aka 60 fps max update
     updateInterval = Math.max(updateInterval, 16);
-    initialDuration = getNumberParam(params, 'initialDuration', initialDuration);
+    initialDuration = getNumberParam(params, 'duration', initialDuration);
     // make sure initial duration is >= 0 and is in seconds
     initialDuration = Math.max(initialDuration, 0);
     initialDuration = Math.round(initialDuration / 1000) * 1000;
+    showStartMessage = params.has('message');
 }
 
 console.log('updateInterval:', updateInterval, ', initialDuration:', initialDuration)
@@ -35,7 +37,7 @@ export const CountdownProvider = ({ children }) => {
         updateInterval,
         initialDuration,
     });
-    return <CountdownContext.Provider value={countdown}>{children}</CountdownContext.Provider>;
+    return <CountdownContext.Provider value={{...countdown, showStartMessage}}>{children}</CountdownContext.Provider>;
 };
 
 export const useCountdownProvider = () => {

@@ -9,7 +9,7 @@ import { Messaging } from "../components/Messaging/Messaging";
 const Index = () => {
     return (
 		<CountdownProvider>			
-			<div className={styles.container}>
+			{/* <div className={styles.container}> */}
 				<Head>
 					<title>Jonathan Elbom - Countdown</title>
 					<link rel="icon" href="/favicon.ico" />
@@ -20,7 +20,7 @@ const Index = () => {
 					<DurationSelect />
 					<Controls />
 				</main>
-			</div>
+			{/* </div> */}
 		</CountdownProvider>
     );
 };

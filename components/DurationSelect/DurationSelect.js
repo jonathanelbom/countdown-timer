@@ -68,31 +68,29 @@ export const DurationSelect = () => {
     ]
 
     return (
-        <div className={styles.root}>
-            <div className={styles.selects}>
-                {contentData.map(({children, type, ...props}, i) => (
-                    type === 'select'
-                        ? (
-                            <select
-                                key={`select-${i}`}
-                                className={styles.select}
-                                onFocus={onInputFocus}
-                                {...props}
-                            >
-                                {children}
-                            </select>
-                        )
-                        : (
-                            <span
-                                key={`colon-${i}`}
-                                className={styles.colon}
-                            >
-                                {':'}
-                            </span>
-                        )
+        <div className={styles.selects}>
+            {contentData.map(({children, type, ...props}, i) => (
+                type === 'select'
+                    ? (
+                        <select
+                            key={`select-${i}`}
+                            className={styles.select}
+                            onFocus={onInputFocus}
+                            {...props}
+                        >
+                            {children}
+                        </select>
+                    )
+                    : (
+                        <span
+                            key={`colon-${i}`}
+                            className={styles.colon}
+                        >
+                            {':'}
+                        </span>
+                    )
 
-                ))}
-            </div>
+            ))}
         </div>
    )
 }

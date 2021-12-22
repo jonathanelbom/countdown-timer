@@ -4,7 +4,8 @@ import styles from "./Messaging.module.scss";
 
 export const Messaging = () => {
     const {
-        seconds
+        seconds,
+        showStartMessage
 	} = useCountdownProvider();
     const [hide, setHide] = useState(false);
     
@@ -14,7 +15,7 @@ export const Messaging = () => {
         }
     }, [seconds, hide]);
     
-    return !hide && seconds <= 0
+    return showStartMessage && !hide && seconds <= 0
         ? (
             <div className={styles.root}>
                 <div className={styles.message}>

@@ -64,7 +64,7 @@ export const AnalogDisplay = () => {
                         }}
                     >
                         <rect y={-7} x={0} width={center} height={`${handleWidth}px`} fill="#FADB4A"/>
-                        <circle cy={0} cx={center} r="30" fill="#FADB4A"/>
+                        <circle cy={0} cx={radius} r="30" fill="#FADB4A"/>
                     </g>
                 </g>
             </svg>
