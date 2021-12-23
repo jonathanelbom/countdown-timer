@@ -8,8 +8,9 @@
     font-family: $font-family;
 }
 
-.selects {
+.root {
     display: flex;
+    justify-content: center
 }
 
 .select {

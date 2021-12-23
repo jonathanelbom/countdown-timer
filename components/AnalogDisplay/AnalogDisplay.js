@@ -10,10 +10,10 @@ export const AnalogDisplay = () => {
     const {
         duration,
         remaining,
+        elapsed,
         isRunning,
         updateInterval,
 	} = useCountdownProvider();
-
     const progress = ((remaining - (isRunning ? updateInterval : 0)) / duration) * 100 || 0;
     const diameter = 360;
     const strokeWidth = 14;
@@ -21,14 +21,14 @@ export const AnalogDisplay = () => {
     const handleWidth = 12;
     const center = (diameter / 2);
     const radius = (center - (strokeWidth / 2));
-    
+    const transitionDuration = `${isRunning ? updateInterval : duration !== 0 ? 350 : 0}ms`
     // Circumference =  Pi times diameter. 
     // We subtact half a stroke width on either side to see where the circle center is
     const circumference = Math.PI * (diameter - strokeWidth);
     const progressBarStyle = {
         strokeDasharray: circumference,
         strokeDashoffset: calculateProgress(circumference, progress),
-        transitionDuration: `${isRunning ? updateInterval : 0}ms`
+        transitionDuration
     };
 
     return (
@@ -60,7 +60,7 @@ export const AnalogDisplay = () => {
                         className={styles.handle}
                         style={{
                             transform: `rotate(${360 * progress / 100}deg)`,
-                            transitionDuration: `${isRunning ? updateInterval : 0}ms`
+                            transitionDuration,
                         }}
                     >
                         <rect y={-7} x={0} width={center} height={`${handleWidth}px`} fill="#FADB4A"/>

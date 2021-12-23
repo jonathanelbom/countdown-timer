@@ -68,7 +68,7 @@ export const DurationSelect = () => {
     ]
 
     return (
-        <div className={styles.selects}>
+        <div className={styles.root}>
             {contentData.map(({children, type, ...props}, i) => (
                 type === 'select'
                     ? (

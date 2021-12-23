@@ -15,14 +15,23 @@ export const useCountdown = ({updateInterval = 1000, initialDuration = 0} = {}) 
     const stop = () => setIsRunning(false);
     
     const reset = useCallback(() => {
-        duration.current = 0;
-        remaining.current = 0;
-        previousRemaining.current = 0;
+        remaining.current = duration.current;
+        previousRemaining.current = duration.current;
         elapsed.current = 0;
         elapsedInterval.current = 0;
-        setSeconds(0);
+        setSeconds(duration.current / 1000);
         setIsRunning(false);
         setElapsedMS(0);
+    }, [setSeconds, setIsRunning]);
+
+    const onEnd = useCallback(() => {
+        // remaining.current = duration.current;
+        // previousRemaining.current = duration.current;
+        // elapsed.current = 0;
+        // elapsedInterval.current = 0;
+        setSeconds(0);
+        setIsRunning(false);
+        // setElapsedMS(0);
     }, [setSeconds, setIsRunning]);
     
     const setDuration = ({hours, minutes, seconds}) => {
@@ -49,12 +58,13 @@ export const useCountdown = ({updateInterval = 1000, initialDuration = 0} = {}) 
                     elapsedInterval.current = elapsed.current;
                 }
                 previousTimestamp = timestamp;
+                
                 remaining.current = duration.current - elapsed.current;
                 
                 if (remaining.current <= 0) {
                     // countdown has no remaining time
                     cancelAnimationFrame(raqId);
-                    reset();   
+                    onEnd();
                 } else {
                     // countdown still has remaining time
                     // compare current seconds to previous seconds to see if second has change in order to update state and displau
@@ -74,7 +84,7 @@ export const useCountdown = ({updateInterval = 1000, initialDuration = 0} = {}) 
                     raqId = window.requestAnimationFrame(step);
                 }
             }
-
+            
             raqId = window.requestAnimationFrame(step);
         }
 

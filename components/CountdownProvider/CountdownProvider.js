@@ -28,8 +28,6 @@ if (typeof document !== 'undefined') {
     showStartMessage = params.has('message');
 }
 
-console.log('updateInterval:', updateInterval, ', initialDuration:', initialDuration)
-
 export const CountdownContext = createContext();
 
 export const CountdownProvider = ({ children }) => {
