@@ -21,7 +21,9 @@ export const AnalogDisplay = () => {
     const handleWidth = 12;
     const center = (diameter / 2);
     const radius = (center - (strokeWidth / 2));
-    const transitionDuration = `${isRunning ? updateInterval : elapsed >= duration ? 0 : 350}ms`
+    // when running, transition duration is set to updateInterval, otherwise set it to 350ms,
+    // unless just starting and stopping countdown, in which case, set it to 0ms
+    const transitionDuration = `${isRunning ? updateInterval : elapsed > 0 ? 0 : 350}ms`
     // Circumference =  Pi times diameter. 
     // We subtact half a stroke width on either side to see where the circle center is
     const circumference = Math.PI * (diameter - strokeWidth);
