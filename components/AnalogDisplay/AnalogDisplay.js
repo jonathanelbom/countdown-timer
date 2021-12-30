@@ -1,10 +1,6 @@
 import { useCountdownProvider } from '../CountdownProvider/CountdownProvider';
+import {calculateProgress, calculateTransitionDuration} from '../../utils/utils';
 import styles from "./AnalogDisplay.module.scss";
-
-const calculateProgress = (circumference, value) => {
-    const progress = Math.max(value, 0) / 100;
-    return circumference * (1 - progress);
-}
 
 export const AnalogDisplay = () => {
     const {
@@ -14,29 +10,36 @@ export const AnalogDisplay = () => {
         isRunning,
         updateInterval,
 	} = useCountdownProvider();
-    const progress = ((remaining - (isRunning ? updateInterval : 0)) / duration) * 100 || 0;
     const diameter = 360;
     const strokeWidth = 14;
     const overlapAdj = 30;
     const handleWidth = 12;
     const center = (diameter / 2);
     const radius = (center - (strokeWidth / 2));
-    // when running, transition duration is set to updateInterval, otherwise set it to 350ms,
-    // unless just starting and stopping countdown, in which case, set it to 0ms
-    const transitionDuration = `${isRunning ? updateInterval : elapsed > 0 ? 0 : 350}ms`
-    // Circumference =  Pi times diameter. 
-    // We subtact half a stroke width on either side to see where the circle center is
+    // Circumference =  Pi times diameter with half a stroke on each side subtracted
     const circumference = Math.PI * (diameter - strokeWidth);
+    const progress = calculateProgress({
+        isRunning,
+        updateInterval,
+        remaining,
+        duration
+    });
+    const transitionDuration = calculateTransitionDuration({
+        isRunning,
+        updateInterval,
+        remaining,
+        elapsed
+    });
     const progressBarStyle = {
         strokeDasharray: circumference,
-        strokeDashoffset: calculateProgress(circumference, progress),
+        strokeDashoffset: circumference * (1 - progress),
         transitionDuration
     };
 
     return (
         <div className={styles.root}>
             <svg
-                className={`${styles.svg} ${!isRunning ? styles.not_running : ''}`}
+                className={styles.svg}
                 width={diameter}
                 height={diameter}
                 viewBox={`${-overlapAdj} ${-overlapAdj} ${diameter + overlapAdj * 2} ${diameter + overlapAdj * 2}`}
@@ -61,7 +64,7 @@ export const AnalogDisplay = () => {
                     <g
                         className={styles.handle}
                         style={{
-                            transform: `rotate(${360 * progress / 100}deg)`,
+                            transform: `rotate(${360 * progress}deg)`,
                             transitionDuration,
                         }}
                     >

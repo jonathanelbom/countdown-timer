@@ -33,3 +33,25 @@ export const getDurationOptions = (type) =>
             </option>
         );
     });
+
+export const calculateProgress = ({isRunning, updateInterval, remaining, duration}) => {
+    // to accomdate for css transition, when running,
+    // subtract updateInterval from remaining time
+    const progressAdjust = isRunning ? updateInterval : 0;
+    const progress = duration > 0
+        ? (remaining - progressAdjust) / duration
+        : 0;
+    return Math.min(1, Math.max(0, progress));
+}
+
+export const calculateTransitionDuration = ({isRunning, updateInterval, remaining, elapsed}) => {
+    // when running, transition duration is set to updateInterval, otherwise set it to 350ms,
+    // unless just starting and stopping countdown, in which case, set it to 0ms
+    let duration = 0;
+    if (isRunning) {
+        duration = remaining < updateInterval ? remaining : updateInterval;
+    } else {
+        duration = elapsed > 0 ? 0 : 350;
+    } 
+    return `${duration}ms`;
+}
