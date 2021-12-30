@@ -38,7 +38,7 @@
       box-shadow: $shadow-hover-stroke
     }
   
-    &:active {
+    &:active:not([disabled]) {
         box-shadow: $shadow-focus;
         outline: none;
         background-color: rgba(0, 0, 0, .5);
